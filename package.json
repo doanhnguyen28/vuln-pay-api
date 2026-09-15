@@ -1,0 +1,19 @@
+{
+  "name": "vuln-pay-api",
+  "version": "1.0.0",
+  "description": "Lab DevSecOps - ung dung co tinh de ton thuong",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/smoke.test.js",
+    "build": "echo 'build placeholder'"
+  },
+  "dependencies": {
+    "express": "4.16.0",
+    "lodash": "4.17.4",
+    "jsonwebtoken": "8.3.0",
+    "axios": "0.21.0",
+    "minimist": "1.2.0"
+  },
+  "devDependencies": {}
+}
