@@ -1,0 +1,37 @@
+name: CI
+
+# ❌ Lỗ 1 (SEC-4): pull_request_target chạy workflow với secret của repo goc
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+
+# ❌ Lỗ 2 (SEC-5): khong khai bao permissions -> mac dinh qua rong
+# (khong co khoi permissions)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # ❌ Lỗ 3 (SEC-4): checkout ma cua PR roi chay no
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # ❌ Lỗ 4 (SEC-3): npm install chay ca install script
+      - run: npm install
+
+      # ❌ Lỗ 5 (SEC-4): noi suy input nguoi dung thang vao shell
+      - run: echo "Building PR titled: ${{ github.event.pull_request.title }}"
+
+      - run: npm test
+
+      # ❌ Lỗ 6 (SEC-8): action pin theo tag di dong, khong phai SHA
+      - uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true   # ❌ Lỗ 7: cong bao mat khong bao gio chan gi
