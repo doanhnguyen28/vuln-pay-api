@@ -19,7 +19,9 @@ jobs:
 
       - run: npm install
 
-      - run: echo "Building PR titled: ${{ github.event.pull_request.title }}"
+      - name: Print PR title
+        run: |
+          echo "Building PR titled ${{ github.event.pull_request.title }}"
 
       - run: npm test
 
