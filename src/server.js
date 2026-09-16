@@ -35,6 +35,8 @@ app.get('/whoami', (req, res) => {
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`vuln-pay-api on :${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`vuln-pay-api on :${PORT}`));
+}
 
 module.exports = app;
